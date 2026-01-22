@@ -5,210 +5,165 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AIPT - AI Personal Trainer Demo</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f9f9f9;
-        }
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-        form {
-            display: flex;
-            flex-direction: column;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        label {
-            margin-top: 12px;
-            font-weight: bold;
-        }
-        input, select {
-            padding: 10px;
-            margin-top: 6px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 16px;
-        }
-        button {
-            margin-top: 25px;
-            padding: 12px;
-            background: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 18px;
-            cursor: pointer;
-        }
-        button:hover {
-            background: #0056b3;
-        }
-        #response {
-            margin-top: 30px;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            background: white;
-            white-space: pre-wrap;
-            min-height: 150px;
-        }
-        hr {
-            margin: 40px 0;
-        }
-        #chatSection {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; background: #f9f9f9; }
+        h1 { text-align: center; color: #333; }
+        form, #chatSection { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        label { margin-top: 12px; font-weight: bold; display: block; }
+        input, select, button { padding: 10px; margin-top: 6px; width: 100%; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; font-size: 16px; }
+        button { background: #007bff; color: white; border: none; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        #response, #chatResponse { padding: 20px; border: 1px solid #ddd; border-radius: 8px; background: white; white-space: pre-wrap; min-height: 150px; margin-top: 15px; }
     </style>
 </head>
 <body>
     <h1>AIPT: Your AI Personal Trainer</h1>
-    <p style="text-align: center;">Enter your details below to get a personalized fitness & nutrition plan powered by AI!</p>
-    
+    <p style="text-align: center;">Powered by Grok — enter details for your custom plan!</p>
+
     <form id="userForm">
-        <label for="name">Your Name:</label>
-        <input type="text" id="name" placeholder="e.g. Wouter" required>
-        
-        <label for="age">Age:</label>
-        <input type="number" id="age" min="18" max="100" required>
-        
-        <label for="gender">Gender:</label>
-        <select id="gender" required>
-            <option value="">Select...</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="other">Other / Prefer not to say</option>
-        </select>
-        
-        <label for="weight">Current Weight (kg):</label>
-        <input type="number" id="weight" min="40" max="200" step="0.1" required>
-        
-        <label for="height">Height (cm):</label>
-        <input type="number" id="height" min="140" max="220" required>
-        
-        <label for="goal">Main Goal:</label>
-        <select id="goal" required>
-            <option value="">Select...</option>
-            <option value="lose fat">Lose Fat (get leaner)</option>
-            <option value="build muscle">Build Muscle</option>
-            <option value="both">Recomp (lose fat + build muscle)</option>
-        </select>
-        
-        <label for="experience">Training Experience:</label>
-        <select id="experience" required>
-            <option value="">Select...</option>
-            <option value="beginner">Beginner (0-1 year consistent training)</option>
-            <option value="intermediate">Intermediate (1-3 years)</option>
-            <option value="advanced">Advanced (3+ years)</option>
-        </select>
-        
-        <label for="diet">Dietary Preferences (optional):</label>
-        <input type="text" id="diet" placeholder="e.g. Vegan, Keto, No dairy, None">
-        
-        <button type="submit">Generate My Personalized Plan</button>
-    </form>
-    
-    <div id="response">Your AI-generated plan will appear here...</div>
-    
+    <label for="name">Your Name:</label>
+    <input type="text" id="name" placeholder="e.g. Wouter" required>
+
+    <label for="age">Age:</label>
+    <input type="number" id="age" min="18" max="100" required>
+
+    <label for="gender">Gender:</label>
+    <select id="gender" required>
+        <option value="">Select...</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other / Prefer not to say</option>
+    </select>
+
+    <label for="weight">Current Weight (kg):</label>
+    <input type="number" id="weight" min="40" max="200" step="0.1" required>
+
+    <label for="height">Height (cm):</label>
+    <input type="number" id="height" min="140" max="220" required>
+
+    <label for="goal">Main Goal:</label>
+    <select id="goal" required>
+        <option value="">Select...</option>
+        <option value="lose fat">Lose Fat (get leaner)</option>
+        <option value="build muscle">Build Muscle</option>
+        <option value="both">Recomp (lose fat + build muscle)</option>
+    </select>
+
+    <label for="experience">Training Experience:</label>
+    <select id="experience" required>
+        <option value="">Select...</option>
+        <option value="beginner">Beginner (0-1 year consistent)</option>
+        <option value="intermediate">Intermediate (1-3 years)</option>
+        <option value="advanced">Advanced (3+ years)</option>
+    </select>
+
+    <label for="diet">Dietary Preferences (optional):</label>
+    <input type="text" id="diet" placeholder="e.g. Vegan, Keto, No dairy, None">
+
+    <button type="submit">Generate My Personalized Plan</button>
+</form>
+
+    <div id="response">Plan appears here...</div>
+
     <hr>
-    
+
     <div id="chatSection">
-        <h2>Ask AIPT follow-up questions</h2>
-        <p>After getting your plan, ask things like: "Make it vegan", "I'm sore — what now?", "Suggest a meal for 500 calories left".</p>
-        <input type="text" id="chatInput" placeholder="Type your question here..." style="width: 100%; padding: 10px; margin-bottom: 10px;">
-        <button id="chatButton">Send to AIPT</button>
-        <div id="chatResponse" style="margin-top: 15px; padding: 15px; border: 1px solid #ddd; border-radius: 8px; min-height: 100px;"></div>
+        <h2>Ask AIPT anything</h2>
+        <input type="text" id="chatInput" placeholder="e.g. Make it vegan?">
+        <button id="chatButton">Send</button>
+        <div id="chatResponse"></div>
     </div>
 
-    <script src="https://js.puter.com/v2/"></script>
     <script>
-        // === MAIN PLAN GENERATOR ===
-        const form = document.getElementById('userForm');
-        const responseDiv = document.getElementById('response');
+        const API_KEY = 'xai-ymQsrJhvo4i2dKJAqCUpx4qN8jRN2kj8nDDMWY6bcfjXxBBg15vcY3dJcUSwq5jOI6lFGTtdDnBz5hYE';  // ← PASTE YOUR REAL KEY HERE (temporary for demo!)
+        const API_URL = 'https://api.x.ai/v1/chat/completions';  // xAI endpoint
 
-        form.addEventListener('submit', async (event) => {
-            event.preventDefault();
-
-            const userData = {
-                name: document.getElementById('name').value.trim() || 'Friend',
-                age: document.getElementById('age').value,
-                gender: document.getElementById('gender').value,
-                weight: document.getElementById('weight').value,
-                height: document.getElementById('height').value,
-                goal: document.getElementById('goal').value,
-                experience: document.getElementById('experience').value,
-                diet: document.getElementById('diet').value.trim() || 'None'
-            };
-
-            const userPrompt = `
-                User details:
-                - Name: ${userData.name}
-                - Age: ${userData.age}
-                - Gender: ${userData.gender}
-                - Weight: ${userData.weight} kg
-                - Height: ${userData.height} cm
-                - Goal: ${userData.goal}
-                - Experience: ${userData.experience}
-                - Dietary preferences: ${userData.diet}
-
-                As AIPT, create a personalized starting plan including:
-                - Estimated daily calories and macro split (protein/carbs/fats)
-                - Simple 3x/week full-body strength training program (exercises, sets, reps)
-                - 2-3 sample meal ideas fitting the macros and preferences
-                - Quick motivational tips and next steps
-                Keep it encouraging, clear, and under 600 words.
-            `;
-
-            const systemPrompt = `
-                You are AIPT, a friendly, expert AI personal trainer helping users build their best physique (low fat, high muscle).
-                Always use the user's name. Be motivational, positive, and practical.
-                Structure your response with clear headings like:
-                ## Your Daily Targets
-                ## Your 3x/Week Workout Plan
-                ## Sample Meals Today
-                ## Quick Tips & Motivation
-                Base advice on standard fitness science (e.g. TDEE estimates, progressive overload).
-            `;
-
-            responseDiv.innerHTML = '<strong>Generating your custom plan... (may take 10-30 seconds the first time)</strong>';
+        // Helper to call Grok API
+        async function callGrok(prompt, system = '') {
+            const responseDiv = document.getElementById('response') || document.getElementById('chatResponse');
+            responseDiv.innerHTML = 'Generating...';
 
             try {
-                const aiResponse = await puter.ai.chat(userPrompt, { system: systemPrompt });
-                responseDiv.innerText = aiResponse;
-            } catch (error) {
-                responseDiv.innerHTML = `<strong>Error:</strong> ${error.message || 'Something went wrong. Check console for details.'}<br><br>Try refreshing the page or signing in at puter.com first.`;
-                console.error('AIPT Error:', error);
-            }
-        });
-
-        // === FOLLOW-UP CHAT ===
-        const chatInput = document.getElementById('chatInput');
-        const chatButton = document.getElementById('chatButton');
-        const chatResponseDiv = document.getElementById('chatResponse');
-
-        chatButton.addEventListener('click', async () => {
-            const question = chatInput.value.trim();
-            if (!question) return;
-
-            chatResponseDiv.innerHTML = '<em>Thinking...</em>';
-
-            try {
-                const aiChatResponse = await puter.ai.chat(question, {
-                    system: 'You are AIPT, the helpful AI trainer. Keep answers short, friendly, and directly related to fitness/nutrition. Use the user context if available from previous messages.'
+                const res = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${API_KEY}`
+                    },
+                    body: JSON.stringify({
+                        model: 'grok-4',  // or 'grok-beta' / check console for latest
+                        messages: [
+                            { role: 'system', content: system || 'You are AIPT, encouraging AI personal trainer.' },
+                            { role: 'user', content: prompt }
+                        ],
+                        temperature: 0.7,
+                        max_tokens: 800
+                    })
                 });
-                chatResponseDiv.innerText = aiChatResponse;
-                chatInput.value = '';
-            } catch (error) {
-                chatResponseDiv.innerHTML = `<strong>Error:</strong> ${error.message || 'Try again.'}`;
-                console.error('Chat Error:', error);
+
+                if (!res.ok) throw new Error(await res.text());
+
+                const data = await res.json();
+                return data.choices[0].message.content;
+            } catch (err) {
+                return 'Error: ' + err.message + ' (Check console or API key)';
             }
+        }
+
+        // Form submit
+       document.getElementById('userForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Get all values from the form
+    const name = document.getElementById('name').value.trim() || 'Friend';
+    const age = document.getElementById('age').value;
+    const gender = document.getElementById('gender').value;
+    const weight = document.getElementById('weight').value;
+    const height = document.getElementById('height').value;
+    const goal = document.getElementById('goal').value;
+    const experience = document.getElementById('experience').value;
+    const diet = document.getElementById('diet').value.trim() || 'None';
+
+    // Build the prompt that tells Grok what to do
+    const userPrompt = `
+Create a personalized starting plan for ${name}:
+- Age: ${age}
+- Gender: ${gender}
+- Weight: ${weight} kg
+- Height: ${height} cm
+- Goal: ${goal}
+- Experience: ${experience}
+- Diet preferences: ${diet}
+
+Include in your response:
+- Estimated daily calories and macro split (protein / carbs / fats)
+- A simple 3x/week full-body strength training program (list exercises, sets, reps)
+- 2-3 sample meal ideas that fit the macros and diet prefs
+- Quick motivational tips and what to do next
+    `;
+
+    const systemPrompt = `
+You are AIPT, a friendly expert AI personal trainer focused on low body fat + high muscle.
+Always use the user's name. Be encouraging, positive, and easy to understand.
+Structure your answer with clear headings like:
+## Daily Targets
+## Workout Plan (3 days per week)
+## Sample Meals
+## Tips & Motivation
+Base advice on proven fitness principles (TDEE, progressive overload, etc.).
+    `;
+
+    // Call the function to talk to Grok
+    const result = await callGrok(userPrompt, systemPrompt);
+    document.getElementById('response').innerText = result;
+});
+
+        // Chat button (similar)
+        document.getElementById('chatButton').addEventListener('click', async () => {
+            const input = document.getElementById('chatInput').value.trim();
+            if (!input) return;
+            const result = await callGrok(input, 'You are AIPT, helpful trainer.');
+            document.getElementById('chatResponse').innerText = result;
+            document.getElementById('chatInput').value = '';
         });
     </script>
 </body>
